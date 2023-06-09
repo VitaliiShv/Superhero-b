@@ -1,49 +1,41 @@
-const superHero = require("../models/superHero/superheroes");
+const { SuperHero } = require("../models/superhero");
 
 const { ctrlWrapper } = require("../utils");
 // const { HttpError } = require("../helpers");
 
 const getSuperHeroList = async (req, res) => {
-  const result = await superHero.getAllHeroes();
+  const result = await SuperHero.find();
+  console.log(result);
   res.json(result);
 };
 
 const getSuperHeroInfo = async (req, res) => {
   const { id } = req.params;
-  const result = await superHero.getFullInfo({ id });
+  // const result = await SuperHero.findOne({ _id: id });
+  const result = await SuperHero.findById(id);
   if (!result) {
-    throw HttpError(404, `Product with ${id} not found`);
+    throw HttpError(404, `Hero with ${id} not found`);
   }
-  res.json({
-    message: "Delete success",
-  });
+  res.json(result);
 };
 
 const addSuperHero = async (req, res) => {
-  const { id } = req.params;
-  const result = await superHero.addItem({ productId: id });
-  if (!result) {
-    throw HttpError(404, `Product with ${id} not found`);
-  }
-  res.json({
-    message: "Delete success",
-  });
+  const result = await SuperHero.create(req.body);
+  res.status(201).json(result);
 };
 
 const editSuperHero = async (req, res) => {
   const { id } = req.params;
-  const result = await superHero.editById({ id });
+  const result = await SuperHero.findByIdAndUpdate(id, req.body, { new: true });
   if (!result) {
     throw HttpError(404, `Product with ${id} not found`);
   }
-  res.json({
-    message: "Delete success",
-  });
+  res.json(result);
 };
 
 const removeSuperHero = async (req, res) => {
   const { id } = req.params;
-  const result = await superHero.deleteById({ id });
+  const result = await SuperHero.findByIdAndDelete(id);
   if (!result) {
     throw HttpError(404, `Product with ${id} not found`);
   }
