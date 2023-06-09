@@ -2,14 +2,14 @@ const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 
-const heroRouter = require("./routes/api/hero");
+const heroRouter = require("./routes/api/superheroes-router");
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-app.use("/api/hero", heroRouter);
+app.use("/api/heroes", heroRouter);
 
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });

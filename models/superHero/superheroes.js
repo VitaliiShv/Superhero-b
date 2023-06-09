@@ -1,8 +1,6 @@
 const fs = require("fs/promises");
 const path = require("path");
 
-const productModule = require("../products");
-
 const cartPath = path.join(__dirname, "cart.json");
 
 const getAll = async () => {
