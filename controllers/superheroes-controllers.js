@@ -1,11 +1,10 @@
 const { SuperHero } = require("../models/superhero");
 
 const { ctrlWrapper } = require("../utils");
-// const { HttpError } = require("../helpers");
+const { HttpError } = require("../helpers");
 
 const getSuperHeroList = async (req, res) => {
   const result = await SuperHero.find();
-  console.log(result);
   res.json(result);
 };
 
@@ -19,8 +18,6 @@ const getSuperHeroInfo = async (req, res) => {
 };
 
 const addSuperHero = async (req, res) => {
-  console.log(req.body);
-  console.log(req.file);
   const result = await SuperHero.create(req.body);
   res.status(201).json(result);
 };
@@ -29,7 +26,7 @@ const editSuperHero = async (req, res) => {
   const { id } = req.params;
   const result = await SuperHero.findByIdAndUpdate(id, req.body, { new: true });
   if (!result) {
-    throw HttpError(404, `Product with ${id} not found`);
+    throw HttpError(404, `Hero with ${id} not found`);
   }
   res.json(result);
 };

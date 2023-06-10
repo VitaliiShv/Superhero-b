@@ -11,7 +11,7 @@ const superheroShema = new Schema(
     origin_description: { type: String, required: true },
     superpowers: { type: String, required: true },
     catch_phrase: { type: String, required: true },
-    images: { type: String }, //enum
+    images: { type: Array },
   },
   { versionKey: false, timestamps: true }
 );
@@ -42,7 +42,7 @@ const addSchema = Joi.object({
     "string.empty": `"author" cannot be empty`,
     "string.base": `"author" must be string`,
   }),
-  Images: Joi.string().required().messages({
+  images: Joi.string().required().messages({
     "any.required": `"author" is required`,
     "string.empty": `"author" cannot be empty`,
     "string.base": `"author" must be string`,

@@ -1,20 +1,4 @@
 const express = require("express");
-const multer = require("multer");
-const path = require("path");
-const fs = require("fs/promises");
-
-const tempDir = path.join(__dirname, "temp");
-
-const multerConfig = multer.diskStorage({
-  destination: tempDir,
-  // filename: (req, file, cb) => {
-  //   cb(null, file.originalname);    //для перейменування файлу
-  // },
-});
-
-const upload = multer({
-  storage: multerConfig,
-});
 
 const ctrl = require("../../controllers/superheroes-controllers");
 
@@ -22,13 +6,21 @@ const { validateBody } = require("../../utils");
 
 const schemas = require("../../models/superhero");
 
+const { uploadCloud } = require("../../utils");
+const { imagesFormatter } = require("../../helpers");
+
 const router = express.Router();
 
 router.get("/", ctrl.getSuperHeroList);
 
 router.get("/:id", ctrl.getSuperHeroInfo);
 
-router.post("/", upload.array("images", 10), ctrl.addSuperHero);
+router.post(
+  "/",
+  uploadCloud.array("images", 10),
+  imagesFormatter,
+  ctrl.addSuperHero
+);
 //validateBody(schemas.addSchema),
 
 router.put("/:id", ctrl.editSuperHero); // за замовчуванням оновлює повністю обєкт
