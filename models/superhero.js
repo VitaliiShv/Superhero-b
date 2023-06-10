@@ -11,7 +11,7 @@ const superheroShema = new Schema(
     origin_description: { type: String, required: true },
     superpowers: { type: String, required: true },
     catch_phrase: { type: String, required: true },
-    Images: { type: String, required: true }, //enum
+    images: { type: String }, //enum
   },
   { versionKey: false, timestamps: true }
 );

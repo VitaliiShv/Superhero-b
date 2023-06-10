@@ -11,7 +11,6 @@ const getSuperHeroList = async (req, res) => {
 
 const getSuperHeroInfo = async (req, res) => {
   const { id } = req.params;
-  // const result = await SuperHero.findOne({ _id: id });
   const result = await SuperHero.findById(id);
   if (!result) {
     throw HttpError(404, `Hero with ${id} not found`);
@@ -20,6 +19,8 @@ const getSuperHeroInfo = async (req, res) => {
 };
 
 const addSuperHero = async (req, res) => {
+  console.log(req.body);
+  console.log(req.file);
   const result = await SuperHero.create(req.body);
   res.status(201).json(result);
 };
