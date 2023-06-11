@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 
-const heroRouter = require("./routes/api/superheroes-router");
+const heroRouter = require("./routes/api/superheroes-routes");
 
 const app = express();
 
